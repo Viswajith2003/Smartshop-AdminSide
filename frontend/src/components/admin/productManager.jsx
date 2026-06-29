@@ -452,6 +452,17 @@ const ProductManager = () => {
                         </div>
                       </div>
                       
+                      {values.images && values.images.length > 0 && (
+                        <div className="mt-2 flex gap-3 flex-wrap bg-slate-50 p-2 rounded-xl border border-slate-100 w-fit">
+                          {Array.from(values.images).map((file, idx) => (
+                            <div key={idx} className="flex flex-col items-center gap-1">
+                              <img src={URL.createObjectURL(file)} alt="Preview" className="h-10 w-10 rounded-lg object-cover border border-slate-100" />
+                              <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest">New Preview</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
                       {values.existingImage && (!values.images || values.images.length === 0) && (
                         <div className="mt-2 flex items-center gap-3 bg-slate-50 p-2 rounded-xl border border-slate-100 w-fit">
                           <img src={values.existingImage} alt="Current" className="h-10 w-10 rounded-lg object-cover border border-slate-100" />

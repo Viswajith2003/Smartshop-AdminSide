@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Loader from "../components/common/Loader";
 
 // Lazy loading admin pages
+const AdminLandingPage = lazy(() => import("../pages/admin/AdminLandingPage"));
 const DashboardPage = lazy(() => import("../pages/admin/DashboardPage"));
 const AdminLoginPage = lazy(() => import("../pages/admin/AdminLogin"));
 const ProductManagement = lazy(() => import("../pages/admin/ProductManagement"));
@@ -28,7 +29,7 @@ const AppRoutes = () => {
             return <Navigate to="/admin/dashboard" replace />;
         }
         
-        return <Navigate to="/admin/login" replace />;
+        return <AdminLandingPage />;
     };
 
     return (
@@ -39,6 +40,11 @@ const AppRoutes = () => {
                 {/* Admin Routes */}
                 <Route path="/admin/login" element={<PublicRoute redirectTo="/admin/dashboard"><AdminLoginPage /></PublicRoute>} />
                 <Route path="/admin/dashboard" element={
+                    <ProtectedRoute role="admin">
+                        <DashboardPage />
+                    </ProtectedRoute>
+                } />
+                <Route path="/admin/dashboard/:tab" element={
                     <ProtectedRoute role="admin">
                         <DashboardPage />
                     </ProtectedRoute>

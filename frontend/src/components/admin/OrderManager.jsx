@@ -15,7 +15,8 @@ import {
   CreditCard,
   Package,
   ChevronDown,
-  AlertCircle
+  AlertCircle,
+  ArrowLeft
 } from 'lucide-react';
 import usePagination from '../../hooks/usePagination';
 import { Pagination, Loader } from '../common';
@@ -25,6 +26,7 @@ const OrderManager = () => {
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState(null);
   const [requestModal, setRequestModal] = useState({ isOpen: false, order: null });
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
   const { pagination, handlePageChange, updatePagination } = usePagination(10);
@@ -151,6 +153,87 @@ const OrderManager = () => {
   };
 
   if (loading && pagination.page === 1) return <div className="h-96 flex items-center justify-center"><Loader /></div>;
+
+  if (selectedOrder) {
+    return (
+      <div className="space-y-6 animate-in fade-in duration-300">
+        <button 
+          onClick={() => setSelectedOrder(null)}
+          className="flex items-center gap-2 text-slate-600 hover:text-indigo-600 transition-colors font-bold text-xs bg-white border border-slate-200 px-5 py-2.5 rounded-xl shadow-sm hover:bg-slate-50 w-fit"
+        >
+          <ArrowLeft size={16} />
+          Back to Orders
+        </button>
+
+        <div className="bg-white rounded-[2rem] p-8 shadow-xl border border-slate-100">
+          <h2 className="text-2xl font-black text-slate-900 mb-8 uppercase tracking-tight">Order Details</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-6">
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Order ID</p>
+                <p className="text-sm font-bold text-slate-900">#{selectedOrder._id}</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Order Date</p>
+                <p className="text-sm font-bold text-slate-900">
+                  {new Date(selectedOrder.createdAt).toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                </p>
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Customer Name</p>
+                <p className="text-sm font-bold text-slate-900">{selectedOrder.shippingAddress?.fullName || selectedOrder.user?.name || 'Guest'}</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Phone Number</p>
+                <p className="text-sm font-bold text-slate-900">{selectedOrder.shippingAddress?.phone || 'N/A'}</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Shipping Address</p>
+                <p className="text-sm font-bold text-slate-900">
+                  {selectedOrder.shippingAddress ? `${selectedOrder.shippingAddress.street}, ${selectedOrder.shippingAddress.city}, ${selectedOrder.shippingAddress.state} - ${selectedOrder.shippingAddress.pincode}` : 'N/A'}
+                </p>
+              </div>
+            </div>
+            
+            <div className="space-y-6">
+              
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Payment Status</p>
+                <p className={`text-sm font-bold ${selectedOrder.paymentStatus === 'Completed' ? 'text-emerald-500' : 'text-amber-500'}`}>
+                  {selectedOrder.paymentStatus === 'Completed' ? 'Paid' : 'Pending'}
+                </p>
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Order Status</p>
+                <p className="text-sm font-bold text-slate-900">{selectedOrder.orderStatus}</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Amount</p>
+                <p className="text-2xl font-black text-indigo-600">₹{selectedOrder.pricing?.totalPrice?.toLocaleString()}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 border-t border-slate-100 pt-8">
+            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Products Purchased</h3>
+            <div className="space-y-4">
+              {selectedOrder.items?.map((item, index) => (
+                <div key={index} className="flex items-center justify-between bg-slate-50 border border-slate-100 p-5 rounded-2xl">
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">{item.product?.name || 'Unknown Product'}</p>
+                    <p className="text-xs font-bold text-slate-500 mt-1">Qty: {item.quantity}</p>
+                  </div>
+                  <p className="text-sm font-black text-slate-900">₹{item.price?.toLocaleString()}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -306,8 +389,11 @@ const OrderManager = () => {
                           </div>
                         )}
                         
-                        <button className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all group/btn" title="View Details">
-                          <Eye size={18} className="group-hover/btn:scale-110 transition-transform" />
+                        <button 
+                          onClick={() => setSelectedOrder(order)}
+                          className="px-5 py-2.5 text-[10px] font-black uppercase tracking-widest bg-slate-100 hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 rounded-xl transition-all shadow-sm"
+                        >
+                          View
                         </button>
                       </div>
                     </td>
@@ -378,6 +464,8 @@ const OrderManager = () => {
            </div>
         </div>
       )}
+
+
     </div>
   );
 };

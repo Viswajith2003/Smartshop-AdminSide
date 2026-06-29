@@ -5,45 +5,10 @@ const User = require("../../models/User");
 const Payment = require("../../models/Payment");
 const { NotFoundError, BadRequestError } = require("../../utils/errors");
 const logger = require("../../utils/logger");
-const PaymentService = require("../payment/paymentService");
-const CouponService = require("../coupon/couponService");
 
 class OrderService {
   static async createRazorpayOrder(userId, shippingAddress, couponCode = null) {
-    const selectedItems = await this._getAndValidateCartItems(userId);
-    const pricing = await this._calculatePricing(selectedItems, couponCode);
-
-    try {
-      const razorpayOrder = await PaymentService.createRazorpayOrder(pricing.totalPrice, `receipt_${Date.now()}`);
-      
-      const order = new Order({
-        user: userId,
-        items: selectedItems.map(item => ({
-          product: item.product._id,
-          quantity: item.quantity,
-          price: item.product.price
-        })),
-        shippingAddress,
-        pricing
-      });
-
-      await order.save();
-      await PaymentService.processPayment(userId, order._id, "Razorpay", pricing.totalPrice, {
-        orderId: razorpayOrder.id
-      });
-      
-      await this._updateStock(order.items, -1);
-
-      return {
-        orderId: order._id,
-        razorpayOrderId: razorpayOrder.id,
-        amount: razorpayOrder.amount,
-        currency: razorpayOrder.currency
-      };
-    } catch (error) {
-      logger.error(`Error creating Razorpay order: ${error.message}`);
-      throw error;
-    }
+    throw new Error("createRazorpayOrder is not implemented on the Admin side");
   }
 
   static async createWalletOrder(userId, shippingAddress, couponCode = null, walletOtp) {
@@ -117,53 +82,11 @@ class OrderService {
   }
 
   static async createCODOrder(userId, shippingAddress, couponCode = null) {
-    const selectedItems = await this._getAndValidateCartItems(userId);
-    const pricing = await this._calculatePricing(selectedItems, couponCode);
-
-    const order = new Order({
-      user: userId,
-      items: selectedItems.map(item => ({
-        product: item.product._id,
-        quantity: item.quantity,
-        price: item.product.price
-      })),
-      shippingAddress,
-      orderStatus: "Processing",
-      pricing
-    });
-
-    await order.save();
-    await PaymentService.processPayment(userId, order._id, "COD", pricing.totalPrice);
-    
-    await this._updateStock(order.items, -1);
-    await this._clearPurchasedItemsFromCart(userId, order.items);
-
-    return order;
+    throw new Error("createCODOrder is not implemented on the Admin side");
   }
 
   static async verifyPayment(userId, { razorpayOrderId, razorpayPaymentId, razorpaySignature }) {
-    const isValid = await PaymentService.verifyRazorpayPayment({ razorpayOrderId, razorpayPaymentId, razorpaySignature });
-    if (!isValid) throw new BadRequestError("Invalid payment signature");
-
-    const payment = await Payment.findOne({ "razorpayDetails.orderId": razorpayOrderId });
-    if (!payment) throw new NotFoundError("Payment record not found");
-
-    const order = await Order.findById(payment.order);
-    if (!order) throw new NotFoundError("Order not found");
-
-    payment.status = "Completed";
-    payment.razorpayDetails.paymentId = razorpayPaymentId;
-    payment.razorpayDetails.signature = razorpaySignature;
-    payment.paidAt = Date.now();
-    await payment.save();
-
-    order.paymentStatus = "Completed";
-    order.orderStatus = "Processing";
-    await order.save();
-
-    await this._clearPurchasedItemsFromCart(userId, order.items);
-
-    return order;
+    throw new Error("verifyPayment is not implemented on the Admin side");
   }
 
   static async getUserOrders(userId) {
@@ -285,6 +208,27 @@ class OrderService {
       await this._updateStock(order.items, 1);
       order.orderStatus = "Cancelled";
       order.cancelReason = reason;
+
+      if (order.paymentStatus === "Completed") {
+        let refundAmount = 0;
+        const totalSubtotal = order.pricing.subtotal || 0;
+        order.items.forEach(item => {
+          if (item.itemStatus === "Active") {
+            const itemTotal = item.price * item.quantity;
+            const itemRefund = totalSubtotal > 0
+              ? itemTotal - (order.pricing.discount * (itemTotal / totalSubtotal))
+              : itemTotal;
+            refundAmount += itemRefund;
+          }
+        });
+
+        if (refundAmount > 0) {
+          await this._refundToWallet(userId, refundAmount, orderId);
+        }
+        order.paymentStatus = "Refunded";
+        await Payment.findOneAndUpdate({ order: orderId }, { status: "Refunded" });
+      }
+
       await order.save();
       return order;
     }
@@ -338,13 +282,8 @@ class OrderService {
     
     let discount = 0;
     if (couponCode) {
-      try {
-        const couponResult = await CouponService.applyCoupon(couponCode, subtotal);
-        discount = couponResult.discountAmount;
-      } catch (error) {
-        // If a user sends a coupon code, it should be valid.
-        throw error;
-      }
+      // Coupon functionality is not supported on Admin backend directly
+      throw new Error("Coupon verification is not implemented on the Admin side");
     }
 
     const totalPrice = subtotal + shippingPrice + taxPrice - discount;
@@ -354,9 +293,14 @@ class OrderService {
 
   static async _updateStock(items, multiplier) {
     for (const item of items) {
-      await Product.findByIdAndUpdate(item.product, {
-        $inc: { stock: multiplier * item.quantity }
-      });
+      const product = await Product.findById(item.product);
+      if (product && product.isActive) {
+        product.stock += multiplier * item.quantity;
+        if (product.stock < 0) product.stock = 0;
+        await product.save();
+      } else {
+        logger.info(`Skipped stock update for inactive/canceled product: ${item.product}`);
+      }
     }
   }
 

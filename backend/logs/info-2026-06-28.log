@@ -1,0 +1,48 @@
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"POST /api/admin/login 200 - 102ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 401 - 2ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 401 - 2ms"}
+{"level":"info","message":"POST /api/admin/login 200 - 67ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 46ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 55ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 18ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 25ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 29ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 9ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 13ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 15ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 23ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 23ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 9ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 18ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 17ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 9ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 32ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 51ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 8ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 16ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 15ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 18ms"}
+{"level":"info","message":"GET /api/categories 200 - 10ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 28ms"}
+{"level":"info","message":"GET /api/categories 200 - 20ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 15ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 12ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 13ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 13ms"}
+{"level":"info","message":"GET /api/categories 200 - 13ms"}
+{"level":"info","message":"GET /api/categories 200 - 12ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 25ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 26ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 11ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 7ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 19ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 18ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 12ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 13ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 19ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 9ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 8ms"}
+{"level":"info","message":"MongoDB connected successfully"}

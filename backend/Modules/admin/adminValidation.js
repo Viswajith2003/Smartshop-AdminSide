@@ -6,7 +6,7 @@ const adminLoginSchema = Joi.object({
 });
 
 const updateOrderStatusSchema = Joi.object({
-  status: Joi.string().valid("Processing", "Shipped", "Delivered", "Cancelled", "Returned").required(),
+  status: Joi.string().valid("Pending", "Processing", "Shipped", "Delivered", "Cancelled", "Returned").required(),
 });
 
 module.exports = {

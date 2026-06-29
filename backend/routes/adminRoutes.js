@@ -22,5 +22,8 @@ router.use('/products', productRoutes);
 router.get('/orders', authenticateAdmin, AdminController.getAllOrders);
 router.put('/orders/:id/status', authenticateAdmin, AdminController.updateOrderStatus);
 
+// Sales Report
+router.get('/sales-report', authenticateAdmin, AdminController.getSalesReport);
+
 module.exports = router;
 

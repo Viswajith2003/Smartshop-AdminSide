@@ -20,7 +20,7 @@ class CouponService {
   }
 
   static async getAllCoupons(queryParams = {}) {
-    const { page = 1, limit = 10, search = "" } = queryParams;
+    const { page = 1, limit = 10, search = "", status } = queryParams;
     const skip = (page - 1) * limit;
 
     const mongoQuery = {};
@@ -28,10 +28,23 @@ class CouponService {
       mongoQuery.code = { $regex: search, $options: "i" };
     }
 
-    const coupons = await Coupon.find(mongoQuery)
+    if (status === "expired") {
+      mongoQuery.validUntil = { $lt: new Date() };
+    } else if (status === "active") {
+      mongoQuery.validUntil = { $gte: new Date() };
+      mongoQuery.isActive = true;
+    }
+
+    let coupons = await Coupon.find(mongoQuery)
       .sort({ createdAt: -1 })
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .lean();
+
+    coupons = coupons.map((coupon) => ({
+      ...coupon,
+      isExpired: new Date(coupon.validUntil) < new Date(),
+    }));
 
     const total = await Coupon.countDocuments(mongoQuery);
 

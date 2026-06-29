@@ -1,0 +1,167 @@
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"POST /api/admin/login 200 - 160ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 76ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 34ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 48ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 26ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 18ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 24ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 83ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 58ms"}
+{"level":"info","message":"GET /api/categories 200 - 20ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 42ms"}
+{"level":"info","message":"GET /api/categories 200 - 41ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 36ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 42ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 45ms"}
+{"level":"info","message":"GET /api/categories 200 - 1546ms"}
+{"level":"info","message":"GET /api/categories 200 - 1473ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 1464ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 1522ms"}
+{"level":"info","message":"PUT /api/admin/products/6a1bd632efc86bb9ae35ad51 200 - 231ms"}
+{"level":"info","message":"GET /api/categories 200 - 101ms"}
+{"level":"info","message":"GET /api/categories 200 - 143ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 164ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 244ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 153ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 137ms"}
+{"level":"error","message":"Error: Schema hasn't been registered for model \"Payment\".\nUse mongoose.model(name, schema)","stack":"MissingSchemaError: Schema hasn't been registered for model \"Payment\".\nUse mongoose.model(name, schema)\n    at NativeConnection.model (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/connection.js:1502:13)\n    at _getModelFromConn (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/helpers/populate/getModelsMapForPopulate.js:708:15)\n    at addModelNamesToMap (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/helpers/populate/getModelsMapForPopulate.js:636:17)\n    at getModelsMapForPopulate (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/helpers/populate/getModelsMapForPopulate.js:218:7)\n    at _populatePath (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/model.js:4417:21)\n    at Function.populate (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/model.js:4384:21)\n    at model.populate (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/document.js:4722:24)\n    at AdminService._handleDeliveredOrder (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/Modules/admin/adminService.js:264:17)\n    at AdminService.updateOrderStatus (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/Modules/admin/adminService.js:142:18)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"}
+{"level":"info","message":"PUT /api/admin/orders/6a4201b9979d9a8421f4c325/status 500 - 65ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 87ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 112ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 102ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 121ms"}
+{"level":"error","message":"Error: Schema hasn't been registered for model \"Payment\".\nUse mongoose.model(name, schema)","stack":"MissingSchemaError: Schema hasn't been registered for model \"Payment\".\nUse mongoose.model(name, schema)\n    at NativeConnection.model (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/connection.js:1502:13)\n    at _getModelFromConn (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/helpers/populate/getModelsMapForPopulate.js:708:15)\n    at addModelNamesToMap (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/helpers/populate/getModelsMapForPopulate.js:636:17)\n    at getModelsMapForPopulate (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/helpers/populate/getModelsMapForPopulate.js:218:7)\n    at _populatePath (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/model.js:4417:21)\n    at Function.populate (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/model.js:4384:21)\n    at model.populate (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/document.js:4722:24)\n    at AdminService._handleDeliveredOrder (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/Modules/admin/adminService.js:264:17)\n    at AdminService.updateOrderStatus (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/Modules/admin/adminService.js:142:18)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"}
+{"level":"info","message":"PUT /api/admin/orders/6a4201b9979d9a8421f4c325/status 500 - 31ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 62ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 61ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 181ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 106ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=2026-06-29&endDate=2026-06-29 200 - 29ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=2026-06-29&endDate=2026-06-29 200 - 42ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 26ms"}
+{"level":"info","message":"GET /api/categories 200 - 58ms"}
+{"level":"info","message":"GET /api/categories 200 - 94ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 93ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 112ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 61ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 47ms"}
+{"level":"error","message":"Error: Schema hasn't been registered for model \"Payment\".\nUse mongoose.model(name, schema)","stack":"MissingSchemaError: Schema hasn't been registered for model \"Payment\".\nUse mongoose.model(name, schema)\n    at NativeConnection.model (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/connection.js:1502:13)\n    at _getModelFromConn (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/helpers/populate/getModelsMapForPopulate.js:708:15)\n    at addModelNamesToMap (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/helpers/populate/getModelsMapForPopulate.js:636:17)\n    at getModelsMapForPopulate (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/helpers/populate/getModelsMapForPopulate.js:218:7)\n    at _populatePath (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/model.js:4417:21)\n    at Function.populate (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/model.js:4384:21)\n    at model.populate (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/node_modules/mongoose/lib/document.js:4722:24)\n    at AdminService._handleDeliveredOrder (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/Modules/admin/adminService.js:264:17)\n    at AdminService.updateOrderStatus (/home/tufa15/Documents/Menter_Bro/Full-Stack Project/SmartShop-AI/Smartshop-AdminSide/backend/Modules/admin/adminService.js:142:18)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"}
+{"level":"info","message":"PUT /api/admin/orders/6a4201b9979d9a8421f4c325/status 500 - 119ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 70ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 75ms"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 89ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 86ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 10ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 24ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 38ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 40ms"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"PUT /api/admin/orders/6a4201b9979d9a8421f4c325/status 200 - 101ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 93ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 6ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 57ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 84ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 11ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 12ms"}
+{"level":"info","message":"GET /api/categories 200 - 16ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 26ms"}
+{"level":"info","message":"GET /api/categories 200 - 17ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 13ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 10ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 11ms"}
+{"level":"info","message":"GET /api/categories 200 - 7ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 17ms"}
+{"level":"info","message":"GET /api/categories 200 - 15ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 23ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 15ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 16ms"}
+{"level":"info","message":"GET /api/categories 200 - 11ms"}
+{"level":"info","message":"GET /api/categories 200 - 15ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 17ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 21ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 4ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 8ms"}
+{"level":"info","message":"GET /api/categories 200 - 8ms"}
+{"level":"info","message":"GET /api/categories 200 - 14ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 10ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 20ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5&isActive=true 200 - 8ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5&isActive=false 200 - 5ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5&isActive=true 200 - 9ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 7ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 21ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 21ms"}
+{"level":"info","message":"GET /api/coupons?page=1&limit=10&search=&status= 200 - 7ms"}
+{"level":"info","message":"GET /api/coupons?page=1&limit=10&search=&status= 200 - 7ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 18ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 8ms"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 79ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate= 200 - 99ms"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All 200 - 105ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 45ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 24ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All 200 - 61ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All 200 - 96ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 82ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 105ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 7ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 8ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 24ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 24ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 26ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All 200 - 101ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All 200 - 17ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 130ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 20ms"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=10&search= 200 - 28ms"}
+{"level":"info","message":"GET /api/categories 200 - 16ms"}
+{"level":"info","message":"GET /api/categories 200 - 28ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 32ms"}
+{"level":"info","message":"GET /api/products?page=1&limit=5 200 - 22ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 6ms"}
+{"level":"info","message":"GET /api/categories?page=1&limit=10&search= 200 - 5ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 23ms"}
+{"level":"info","message":"GET /api/admin/orders?page=1&limit=10&search=&status=All 200 - 25ms"}
+{"level":"info","message":"GET /api/coupons?page=1&limit=10&search=&status= 200 - 5ms"}
+{"level":"info","message":"GET /api/coupons?page=1&limit=10&search=&status= 200 - 4ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All 200 - 12ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All 200 - 15ms"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All&page=1&limit=10 200 - 63ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All&page=2&limit=10 200 - 63ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All&page=1&limit=10 200 - 29ms"}
+{"level":"info","message":"MongoDB connected successfully"}
+{"level":"info","message":"Server initialized successfully"}
+{"level":"info","message":"Server running in development mode on port 5002"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All&page=1&limit=10 200 - 105ms"}
+{"level":"info","message":"GET /api/admin/sales-report?startDate=&endDate=&status=All&page=1&limit=10 200 - 85ms"}
+{"level":"info","message":"GET /api/admin/dashboard 200 - 39ms"}

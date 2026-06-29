@@ -47,6 +47,7 @@ const CouponManager = () => {
   const [couponToDelete, setCouponToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState(''); // '', 'active', 'expired'
   const { pagination, handlePageChange, updatePagination } = usePagination(10);
 
   const fetchCoupons = async () => {
@@ -54,7 +55,8 @@ const CouponManager = () => {
       const params = {
         page: pagination.page,
         limit: pagination.limit,
-        search: searchTerm
+        search: searchTerm,
+        status: statusFilter
       };
       const res = await couponAPI.getCoupons(params);
       if (res.success) {
@@ -70,11 +72,11 @@ const CouponManager = () => {
 
   useEffect(() => {
     fetchCoupons();
-  }, [pagination.page, pagination.limit, searchTerm]);
+  }, [pagination.page, pagination.limit, searchTerm, statusFilter]);
 
   useEffect(() => {
     handlePageChange(1);
-  }, [searchTerm]);
+  }, [searchTerm, statusFilter]);
 
   const handleEditCoupon = (coupon = null) => {
     setEditingCoupon(coupon || null);
@@ -120,12 +122,21 @@ const CouponManager = () => {
           <p className="text-slate-500 text-sm font-medium mt-1">Manage promotional offers and discounts</p>
         </div>
 
-        <div className="flex-grow max-w-md w-full">
+        <div className="flex-grow max-w-md w-full flex gap-3">
            <SearchBar 
              variant="admin" 
              placeholder="Search coupons..." 
              onSearch={(val) => setSearchTerm(val || '')}
            />
+           <select
+             value={statusFilter}
+             onChange={(e) => setStatusFilter(e.target.value)}
+             className="bg-slate-50 border border-slate-100 text-slate-600 font-bold text-sm rounded-xl px-4 py-2 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+           >
+             <option value="">All Status</option>
+             <option value="active">Active</option>
+             <option value="expired">Expired</option>
+           </select>
         </div>
 
         <button 
@@ -184,9 +195,21 @@ const CouponManager = () => {
                     </div>
                   </td>
                   <td className="p-5">
-                    <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[9px] font-black uppercase rounded border ${coupon.isActive ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-slate-50 text-slate-500 border-slate-200'}`}>
-                      {coupon.isActive ? 'Active' : 'Expired'}
-                    </span>
+                    {(() => {
+                      const isExpired = coupon.isExpired || new Date(coupon.validUntil) < new Date();
+                      if (isExpired) {
+                        return (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-[9px] font-black uppercase rounded border bg-red-50 text-red-600 border-red-100">
+                            Expired
+                          </span>
+                        );
+                      }
+                      return (
+                        <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[9px] font-black uppercase rounded border ${coupon.isActive ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-slate-50 text-slate-500 border-slate-200'}`}>
+                          {coupon.isActive ? 'Active' : 'Inactive'}
+                        </span>
+                      );
+                    })()}
                   </td>
                   <td className="p-5 text-right">
                     <div className="flex items-center justify-end gap-2">

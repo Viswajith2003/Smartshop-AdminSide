@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../features/auth/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Users, 
@@ -22,9 +22,24 @@ import { CategoryManager, ProductManager, CouponManager, OrderManager, UserManag
 import { adminAPI } from '../../services/api';
 
 const DashboardPage = memo(() => {
-  const [activeItem, setActiveItem] = useState(() => {
-    return localStorage.getItem('adminActiveItem') || 'Dashboard';
-  });
+  const { tab } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const activeItem = React.useMemo(() => {
+    if (!tab) return 'Dashboard';
+    const tabMap = {
+      'users': 'Users',
+      'products': 'Products',
+      'categories': 'Categories',
+      'orders': 'Orders',
+      'coupons': 'Coupons',
+      'banners': 'Banners',
+      'sales-report': 'Sales Report'
+    };
+    return tabMap[tab] || 'Dashboard';
+  }, [tab]);
+
   const [statsData, setStatsData] = useState(null);
 
   useEffect(() => {
@@ -45,12 +60,11 @@ const DashboardPage = memo(() => {
     }
   }, [activeItem]);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate('/admin/login');
   };
 
   const sidebarItems = [
@@ -117,7 +131,12 @@ const DashboardPage = memo(() => {
             return (
               <button
                 key={item.name}
-                onClick={() => setActiveItem(item.name)}
+                onClick={() => {
+                  const path = item.name === 'Dashboard' 
+                    ? '/admin/dashboard' 
+                    : `/admin/dashboard/${item.name.toLowerCase().replace(' ', '-')}`;
+                  navigate(path);
+                }}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative ${
                   isActive 
                     ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' 

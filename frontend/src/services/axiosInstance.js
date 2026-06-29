@@ -72,9 +72,9 @@ axiosInstance.interceptors.response.use(
 
       if (!isAuthEndpoint) {
         clearTokens();
-        if (!window.location.pathname.includes('/login')) {
+        if (!window.location.pathname.includes('/admin/login')) {
           toast.error('Session expired. Please login again.');
-          window.location.href = '/login';
+          window.location.href = '/admin/login';
         }
       }
     }

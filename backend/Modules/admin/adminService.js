@@ -3,6 +3,7 @@ const User = require("../../models/User");
 const Product = require("../../models/Product");
 const Category = require("../../models/Category");
 const Order = require("../../models/Order");
+const Payment = require("../../models/Payment");
 const { generateAdminToken } = require("../../utils/jwt");
 const { AuthenticationError, NotFoundError } = require("../../utils/errors");
 
@@ -144,10 +145,44 @@ class AdminService {
       const OrderService = require("../order/orderService");
       await OrderService._updateStock(order.items, 1);
       
+      // Calculate the sum of active items that have NOT been cancelled/refunded yet
+      let refundAmount = 0;
+      if (order.paymentStatus === "Completed") {
+        const totalSubtotal = order.pricing.subtotal || 0;
+        order.items.forEach(item => {
+          if (item.itemStatus === "Active") {
+            const itemTotal = item.price * item.quantity;
+            const itemRefund = totalSubtotal > 0
+              ? itemTotal - (order.pricing.discount * (itemTotal / totalSubtotal))
+              : itemTotal;
+            refundAmount += itemRefund;
+          }
+        });
+      }
+
       // Update itemStatus to match order status
       order.items.forEach(item => {
         item.itemStatus = status;
       });
+
+      // Credit wallet if order was paid (Completed) and there is a refund due
+      if (order.paymentStatus === "Completed" && refundAmount > 0) {
+        await User.findByIdAndUpdate(order.user, {
+          $inc: { "wallet.balance": refundAmount },
+          $push: {
+            "wallet.transactions": {
+              amount: refundAmount,
+              type: "credit",
+              status: "success",
+              description: `Refund for cancelled/returned order items ${orderId}`,
+              orderId,
+              createdAt: new Date()
+            }
+          }
+        });
+        order.paymentStatus = "Refunded";
+        await Payment.findOneAndUpdate({ order: orderId }, { status: "Refunded" });
+      }
     }
 
     await order.save();
@@ -155,70 +190,72 @@ class AdminService {
   }
 
   static async getSalesReport(filters = {}) {
-    const { startDate, endDate } = filters;
+    const { startDate, endDate, status, page = 1, limit = 10 } = filters;
     const dateQuery = {};
     if (startDate || endDate) {
       dateQuery.createdAt = {};
       if (startDate) dateQuery.createdAt.$gte = new Date(startDate);
-      if (endDate) dateQuery.createdAt.$lte = new Date(endDate);
+      if (endDate) {
+        const end = new Date(endDate);
+        end.setHours(23, 59, 59, 999);
+        dateQuery.createdAt.$lte = end;
+      }
     }
 
-    // Match only completed orders
     const matchQuery = { 
       paymentStatus: "Completed",
       ...dateQuery
     };
 
-    // Sales by Date
-    const salesByDate = await Order.aggregate([
-      { $match: matchQuery },
-      {
-        $group: {
-          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-          revenue: { $sum: "$pricing.totalPrice" },
-          orders: { $sum: 1 }
-        }
-      },
-      { $sort: { _id: -1 } }
-    ]);
+    if (status && status !== 'All') {
+      matchQuery.orderStatus = status;
+    }
 
-    // Sales by Product
-    const salesByProduct = await Order.aggregate([
-      { $match: matchQuery },
-      { $unwind: "$items" },
-      {
-        $group: {
-          _id: "$items.product",
-          revenue: { $sum: { $multiply: ["$items.price", "$items.quantity"] } },
-          quantity: { $sum: "$items.quantity" }
+    const orders = await Order.find(matchQuery)
+      .populate("user", "name")
+      .populate("items.product", "name category")
+      .sort({ createdAt: -1 });
+
+    const reportData = [];
+    let totalRevenue = 0;
+    const uniqueProducts = new Set();
+
+    orders.forEach(order => {
+      totalRevenue += order.pricing.totalPrice;
+      order.items.forEach(item => {
+        if (item.product) {
+          uniqueProducts.add(item.product._id.toString());
         }
-      },
-      {
-        $lookup: {
-          from: "products",
-          localField: "_id",
-          foreignField: "_id",
-          as: "product"
-        }
-      },
-      { $unwind: "$product" },
-      { $project: { 
-          name: "$product.name", 
-          revenue: 1, 
-          quantity: 1,
-          category: "$product.category"
-        } 
-      },
-      { $sort: { revenue: -1 } }
-    ]);
+        reportData.push({
+          orderId: order._id,
+          date: order.createdAt,
+          customerName: order.user ? order.user.name : "Guest",
+          productName: item.product ? item.product.name : "Unknown Product",
+          quantity: item.quantity,
+          price: item.price,
+          status: order.orderStatus,
+          couponDiscount: order.pricing.discount || 0
+        });
+      });
+    });
+
+    const totalItems = reportData.length;
+    const totalPages = Math.ceil(totalItems / limit);
+    const paginatedData = reportData.slice((page - 1) * limit, page * limit);
 
     return {
-      salesByDate,
-      salesByProduct,
+      reportData: paginatedData,
+      allReportData: reportData,
       summary: {
-        totalRevenue: salesByDate.reduce((acc, curr) => acc + curr.revenue, 0),
-        totalOrders: salesByDate.reduce((acc, curr) => acc + curr.orders, 0),
-        totalProducts: salesByProduct.length
+        totalRevenue,
+        totalOrders: orders.length,
+        totalProducts: uniqueProducts.size
+      },
+      meta: {
+        totalItems,
+        totalPages,
+        currentPage: Number(page),
+        limit: Number(limit)
       }
     };
   }

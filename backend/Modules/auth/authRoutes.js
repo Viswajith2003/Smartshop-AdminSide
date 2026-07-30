@@ -10,8 +10,10 @@ const {
   verifyOtpSchema,
 } = require("./authValidation");
 
+const loginLimiter = require("../../middlewares/loginLimiter");
+
 router.post("/register", validate(registerSchema), AuthController.register);
-router.post("/login", validate(loginSchema), AuthController.login);
+router.post("/login", loginLimiter, validate(loginSchema), AuthController.login);
 router.post("/forgot-password", validate(forgotPasswordSchema), AuthController.forgotPassword);
 router.post("/reset-password", validate(resetPasswordSchema), AuthController.resetPassword);
 router.post("/verify-otp", validate(verifyOtpSchema), AuthController.verifyOtp);

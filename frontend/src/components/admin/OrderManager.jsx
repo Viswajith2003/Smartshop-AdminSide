@@ -375,7 +375,7 @@ const OrderManager = () => {
                         ) : (
                           <div className="relative group/select">
                             <select 
-                              disabled={updatingId === order._id || ['Cancelled', 'Returned'].includes(order.orderStatus)}
+                              disabled={updatingId === order._id || ['Cancelled', 'Returned', 'Delivered'].includes(order.orderStatus)}
                               value={order.orderStatus}
                               onChange={(e) => handleStatusUpdate(order._id, e.target.value)}
                               className={`bg-slate-50 border border-slate-200 rounded-xl pl-3 pr-8 py-2.5 text-[9px] font-black uppercase tracking-widest outline-none focus:border-indigo-500 appearance-none disabled:opacity-20 cursor-pointer transition-all hover:bg-slate-100 ${updatingId === order._id ? 'animate-pulse' : ''}`}

@@ -4,3 +4,4 @@ export { default as ProductManager } from './productManager';
 export { default as OrderManager } from './OrderManager';
 export { default as UserManager } from './UserManager';
 export { default as SalesReport } from './SalesReport';
+export { default as BannerManager } from './BannerManager';

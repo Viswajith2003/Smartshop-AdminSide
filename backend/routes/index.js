@@ -6,6 +6,7 @@ const adminRoutes = require('../Modules/admin/adminRoutes');
 const categoryRoutes = require('../Modules/category/categoryRoutes');
 const productRoutes = require('../Modules/product/productRoutes');
 const couponRoutes = require('../Modules/coupon/couponRoutes');
+const bannerRoutes = require('../Modules/banner/bannerRoutes');
 
 router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
@@ -13,5 +14,6 @@ router.use('/admin', adminRoutes);
 router.use('/categories', categoryRoutes);
 router.use('/products', productRoutes);
 router.use('/coupons', couponRoutes);
+router.use('/banners', bannerRoutes);
 
 module.exports = router;

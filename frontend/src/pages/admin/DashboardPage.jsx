@@ -18,7 +18,7 @@ import {
   ShoppingBag,
   ArrowUpRight
 } from 'lucide-react';
-import { CategoryManager, ProductManager, CouponManager, OrderManager, UserManager, SalesReport } from '../../components/admin';
+import { CategoryManager, ProductManager, CouponManager, OrderManager, UserManager, SalesReport, BannerManager } from '../../components/admin';
 import { adminAPI } from '../../services/api';
 
 const DashboardPage = memo(() => {
@@ -313,6 +313,7 @@ const DashboardPage = memo(() => {
           {activeItem === 'Products' && <ProductManager />}
           {activeItem === 'Coupons' && <CouponManager />}
           {activeItem === 'Orders' && <OrderManager />}
+          {activeItem === 'Banners' && <BannerManager />}
           {activeItem === 'Sales Report' && <SalesReport />}
 
         </div>
